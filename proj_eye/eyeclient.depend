@@ -1,0 +1,501 @@
+# depslib dependency file v1.0
+1336665970 source:/home/ran/projects/workspace/eyeclient/main.cpp
+	<iostream>
+	<sstream>
+	"include/EyeClient.h"
+	"include/Mouse.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/sdk.h
+	"eod/basics.h"
+	"eod/headintersectionoutputdatav1.h"
+	"eod/compressedserializable.h"
+	"eod/compressedserializabletoken.h"
+	"eod/customeventoutputdata.h"
+	"eod/engineoutputbase.h"
+	"eod/engineoutputdata.h"
+	"eod/enginestateoutputdata.h"
+	"eod/eyeclosureoutputdata.h"
+	"eod/eyeoutputdata.h"
+	"eod/faceoutputdata.h"
+	"eod/faceoutputdatav2.h"
+	"eod/facesetoutputdata.h"
+	"eod/facetextureoutputdata.h"
+	"eod/featurecircle.h"
+	"eod/featureline.h"
+	"eod/featureoutputdata.h"
+	"eod/featurepoint.h"
+	"eod/featurerect.h"
+	"eod/featureset.h"
+	"eod/featuresetsbycamera.h"
+	"eod/flmids.h"
+	"eod/flmtypes.h"
+	"eod/gazeintersectionoutputdatabase.h"
+	"eod/gazeintersectionoutputdatav1.h"
+	"eod/gazeintersectionoutputdatav2.h"
+	"eod/gazeintersectionoutputdatav3.h"
+	"eod/gazeintersectionoutputdatav4.h"
+	"eod/gazeoutputdata.h"
+	"eod/gpsoutputdata.h"
+	"eod/gpsoutputdatav2.h"
+	"eod/headoutputdata.h"
+	"eod/headoutputdatav2.h"
+	"eod/headintersectionoutputdatav2.h"
+	"eod/headtrackerstateoutputdata.h"
+	"eod/imagecollectionoutputdata.h"
+	"eod/imageoutputdata.h"
+	"eod/inertiaoutputdata.h"
+	"eod/intersectionoutputbase.h"
+	"eod/intersectionoutputbasev2.h"
+	"eod/irpodstateoutputdata.h"
+	"eod/pupiloutputdata.h"
+	"eod/serializable.h"
+	"eod/serializablecomposite.h"
+	"eod/serializablefactory.h"
+	"eod/timingoutputdata.h"
+	"eod/worldoutputdata.h"
+	"eod/worldoutputdatav2.h"
+	"eod/eodupgrade.h"
+	"eod/eodconversion.h"
+	"eod/utils/geomutils.h"
+	"eod/utils/outputdatautils.h"
+	"eod/io/datagramsocket.h"
+	"eod/io/devicesettings.h"
+	"eod/io/engineoutputdatafilereader.h"
+	"eod/io/engineoutputdatafilewriter.h"
+	"eod/io/engineoutputdatatcpclient.h"
+	"eod/io/inetaddress.h"
+	"eod/io/outputdataprinter.h"
+	"eod/io/portnumbervalidatorconsts.h"
+	"eod/io/serialport.h"
+	"eod/io/serialporterror.h"
+	"eod/io/socketerror.h"
+	"eod/io/tcpclient.h"
+	"eod/io/tcpendpoint.h"
+	"eod/io/tcpsocket.h"
+	"eod/io/stringfuns.h"
+	"eod/io/filereader.h"
+	"eod/io/filewriter.h"
+	"eod/io/decompressingfilereader.h"
+	"eod/io/compressingfilewriter.h"
+	"eod/io/serializablecompressor.h"
+	"eod/io/serializabledecompressor.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/basics.h
+	"eod/platform_os.h"
+	<cstring>
+	<string>
+	<vector>
+	<map>
+	<locale>
+	<stdexcept>
+	<iomanip>
+	<limits>
+	<iostream>
+	<sstream>
+	<fstream>
+	<cmath>
+	<boost/shared_ptr.hpp>
+	<boost/scoped_ptr.hpp>
+	<boost/static_assert.hpp>
+	"eod/coredata_export_macro.h"
+	"eod/platform_types.h"
+	"eod/platform_socket.h"
+	"eod/platform_error.h"
+	<windows.h>
+	<tchar.h>
+	<crtdbg.h>
+	<netinet/in.h>
+	<sys/ioctl.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<assert.h>
+	<sys/time.h>
+	<unistd.h>
+	<errno.h>
+	<dirent.h>
+	"eod/memoryutils/stdallocators.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/platform_os.h
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/coredata_export_macro.h
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/platform_types.h
+	<sys/types.h>
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/platform_socket.h
+	<sys/ioctl.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<netdb.h>
+	<unistd.h>
+	<winsock2.h>
+	<ws2tcpip.h>
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/platform_error.h
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/memoryutils/stdallocators.h
+	"boost/pool/singleton_pool.hpp"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/headintersectionoutputdatav1.h
+	"eod/intersectionoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/intersectionoutputbase.h
+	"eod/engineoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/engineoutputbase.h
+	"eod/serializablecomposite.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/serializablecomposite.h
+	"eod/serializable.h"
+	"eod/serializablefactory.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/serializable.h
+	"eod/serializableerror.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/serializableerror.h
+	"eod/eoderror.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/eoderror.h
+	"eod/basics.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/serializablefactory.h
+	"eod/serializable.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/compressedserializable.h
+	"eod/serializable.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/compressedserializabletoken.h
+	"eod/engineoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/customeventoutputdata.h
+	"eod/engineoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/engineoutputdata.h
+	"eod/engineoutputbase.h"
+	"eod/gpsoutputdata.h"
+	"eod/gpsoutputdatav2.h"
+	"eod/eodupgrade.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/gpsoutputdata.h
+	"eod/engineoutputbase.h"
+	"eod/gpscoordinate.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/gpscoordinate.h
+	"eod/basics.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/gpsoutputdatav2.h
+	"eod/engineoutputbase.h"
+	"eod/gpscoordinate.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/eodupgrade.h
+	"eod/headoutputdatav2.h"
+	"eod/worldoutputdatav2.h"
+	"eod/faceoutputdatav2.h"
+	"eod/facesetoutputdata.h"
+	"eod/timingoutputdata.h"
+	"eod/featuresetsbycamera.h"
+	"eod/imagecollectionoutputdata.h"
+	"eod/eyeoutputdata.h"
+	"eod/inertiaoutputdata.h"
+	"eod/enginestateoutputdata.h"
+	"eod/gazeintersectionoutputdatav4.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/headoutputdatav2.h
+	"eod/headoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/headoutputdata.h
+	"eod/engineoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/worldoutputdatav2.h
+	"eod/engineoutputbase.h"
+	"eod/worldoutputdata.h"
+	"eod/headintersectionoutputdatav2.h"
+	"eod/gazeintersectionoutputdatav3.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/worldoutputdata.h
+	"eod/engineoutputbase.h"
+	"eod/serializablefactory.h"
+	"eod/headintersectionoutputdatav1.h"
+	"eod/gazeintersectionoutputdatabase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/gazeintersectionoutputdatabase.h
+	"eod/intersectionoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/headintersectionoutputdatav2.h
+	"eod/intersectionoutputbasev2.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/intersectionoutputbasev2.h
+	"eod/engineoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/gazeintersectionoutputdatav3.h
+	"eod/intersectionoutputbasev2.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/faceoutputdatav2.h
+	"eod/engineoutputbase.h"
+	"eod/flmtypes.h"
+	"eod/facetextureoutputdata.h"
+	"eod/faceoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/flmtypes.h
+	"eod/basics.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/facetextureoutputdata.h
+	"eod/engineoutputbase.h"
+	"eod/flmtypes.h"
+	"eod/imageoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/imageoutputdata.h
+	"eod/serializable.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/faceoutputdata.h
+	"eod/engineoutputbase.h"
+	"eod/flmtypes.h"
+	"eod/facetextureoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/facesetoutputdata.h
+	"eod/engineoutputbase.h"
+	"eod/serializablefactory.h"
+	"eod/eyeclosureoutputdata.h"
+	"eod/pupiloutputdata.h"
+	"eod/gazeoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/eyeclosureoutputdata.h
+	"eod/engineoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/pupiloutputdata.h
+	"eod/engineoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/gazeoutputdata.h
+	"eod/engineoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/timingoutputdata.h
+	"eod/engineoutputbase.h"
+	"eod/serializablefactory.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/featuresetsbycamera.h
+	"eod/engineoutputbase.h"
+	"eod/featureset.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/featureset.h
+	"eod/engineoutputbase.h"
+	"eod/featurerect.h"
+	"eod/featurepoint.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/featurerect.h
+	"eod/featureoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/featureoutputdata.h
+	"eod/serializable.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/featurepoint.h
+	"eod/featureoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/imagecollectionoutputdata.h
+	"eod/engineoutputbase.h"
+	"eod/imageoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/eyeoutputdata.h
+	"eod/engineoutputbase.h"
+	"eod/serializablefactory.h"
+	"eod/eyeclosureoutputdata.h"
+	"eod/pupiloutputdata.h"
+	"eod/gazeoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/inertiaoutputdata.h
+	"eod/engineoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/enginestateoutputdata.h
+	"eod/engineoutputbase.h"
+	"eod/headtrackerstateoutputdata.h"
+	"eod/irpodstateoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/headtrackerstateoutputdata.h
+	"eod/engineoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/irpodstateoutputdata.h
+	"eod/engineoutputbase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/gazeintersectionoutputdatav4.h
+	"eod/intersectionoutputbasev2.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/featurecircle.h
+	"eod/featureoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/featureline.h
+	"eod/featureoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/flmids.h
+	"eod/flmtypes.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/gazeintersectionoutputdatav1.h
+	"eod/gazeintersectionoutputdatabase.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/gazeintersectionoutputdatav2.h
+	"eod/gazeintersectionoutputdatav1.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/eodconversion.h
+	"eod/gazeintersectionoutputdatav1.h"
+	"eod/gazeintersectionoutputdatav2.h"
+	"eod/gazeintersectionoutputdatav3.h"
+	"eod/gazeintersectionoutputdatav4.h"
+	"eod/faceoutputdata.h"
+	"eod/faceoutputdatav2.h"
+	"eod/headoutputdata.h"
+	"eod/headoutputdatav2.h"
+	"eod/gpsoutputdata.h"
+	"eod/gpsoutputdatav2.h"
+	"eod/worldoutputdata.h"
+	"eod/worldoutputdatav2.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/utils/geomutils.h
+	"eod/utils/geomutilserror.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/utils/geomutilserror.h
+	"eod/eoderror.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/utils/outputdatautils.h
+	"eod/utils/outputdatautilserror.h"
+	"eod/engineoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/utils/outputdatautilserror.h
+	"eod/eoderror.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/datagramsocket.h
+	"eod/io/inetaddress.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/inetaddress.h
+	"eod/io/inetaddresserror.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/inetaddresserror.h
+	"eod/eoderror.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/devicesettings.h
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/engineoutputdatafilereader.h
+	"eod/engineoutputdata.h"
+	"eod/io/engineoutputdatafileerror.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/engineoutputdatafileerror.h
+	"eod/eoderror.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/engineoutputdatafilewriter.h
+	"eod/engineoutputdata.h"
+	"eod/io/engineoutputdatafileerror.h"
+	"eod/io/bufferedoutputfilestream.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/bufferedoutputfilestream.h
+	"eod/basics.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/engineoutputdatatcpclient.h
+	"eod/engineoutputdata.h"
+	"eod/io/inetaddress.h"
+	"eod/io/tcpsocket.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/tcpsocket.h
+	"eod/basics.h"
+	"eod/io/inetaddress.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/outputdataprinter.h
+	"eod/io/inetaddress.h"
+	"eod/engineoutputdata.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/portnumbervalidatorconsts.h
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/serialport.h
+	"eod/io/serialporterror.h"
+	"eod/io/devicesettings.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/serialporterror.h
+	"eod/eoderror.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/socketerror.h
+	"eod/eoderror.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/tcpclient.h
+	"eod/io/inetaddress.h"
+	"eod/io/tcpendpoint.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/tcpendpoint.h
+	"eod/io/inetaddress.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/stringfuns.h
+	<locale>
+	<sstream>
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/filereader.h
+	"eod/serializable.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/filewriter.h
+	"eod/serializable.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/decompressingfilereader.h
+	"eod/io/filereader.h"
+	"eod/io/compressingfilewriter.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/compressingfilewriter.h
+	"eod/io/compressionprofileregistry.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/compressionprofileregistry.h
+	"eod/serializable.h"
+	"eod/io/filewriter.h"
+	"eod/io/genericserializablecompressorencoderfactory.h"
+	"eod/io/serializablecompressordecoderfactory.h"
+	<set>
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/genericserializablecompressorencoderfactory.h
+	"eod/io/detail/genericserializablecompressorencoderfactoryimpl.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/detail/genericserializablecompressorencoderfactoryimpl.h
+	"eod/io/serializablecompressorencoderfactory.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/serializablecompressorencoderfactory.h
+	"eod/serializable.h"
+	"eod/io/serializablecompressorencoder.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/serializablecompressorencoder.h
+	"serializablecompressorcodec.h"
+	"eod/serializable.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/serializablecompressorcodec.h
+	"eod/platform_types.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/serializablecompressordecoderfactory.h
+	"serializablecompressordecoder.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/serializablecompressordecoder.h
+	"eod/serializable.h"
+	"eod/io/serializablecompressorcodec.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/serializablecompressor.h
+	"eod/engineoutputdata.h"
+	"eod/compressedserializable.h"
+	"eod/io/serializablecompressorcodec.h"
+	"eod/io/serializableidextractor.h"
+	"eod/io/serializablecompressorencoder.h"
+	"eod/io/serializablecompressorencoderfactory.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/serializableidextractor.h
+	"eod/serializable.h"
+
+1301630056 /home/ran/projects/eye/coredata/include/eod/io/serializabledecompressor.h
+	"eod/engineoutputdata.h"
+	"eod/compressedserializable.h"
+	"eod/io/serializablecompressordecoderfactory.h"
+
+1336686147 /home/ran/projects/workspace/eyeclient/include/EyeClient.h
+	<sstream>
+	<eod/sdk.h>
+	<vector>
+
+1336686165 source:/home/ran/projects/workspace/eyeclient/src/EyeClient.cpp
+	"../include/EyeClient.h"
+
+1336231845 /home/ran/projects/workspace/eyeclient/include/Mouse.h
+	<X11/Xlib.h>
+	<stdlib.h>
+	<unistd.h>
+	<stdio.h>
+	<string.h>
+
