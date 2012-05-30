@@ -27,5 +27,6 @@ int main()
     }
     delete mouse;
     delete client;
+    //test
     //cout<<client->getServerAddress()<<endl;
 }
