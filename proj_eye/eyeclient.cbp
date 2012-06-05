@@ -13,16 +13,18 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="../../eye/coredata/include" />
-					<Add directory="/home/ran/projects/eye/coredata/include" />
+					<Add directory="/usr/users/promo2013/ran_she/project/coredata/include" />
 				</Compiler>
 				<Linker>
-					<Add library="/home/ran/projects/eye/coredata/libstatic/linux32_ia32sse2/libsm_cd_coredata.a" />
-					<Add library="/home/ran/projects/eye/coredata/libstatic/linux32_ia32sse2/libsm_cd_coredata_d.a" />
-					<Add library="/home/ran/projects/eye/coredata/libshared/linux32_ia32sse2/libsm_cd_coredata.so" />
-					<Add library="/home/ran/projects/eye/coredata/libshared/linux32_ia32sse2/libsm_cd_coredata_d.so" />
-					<Add directory="/home/ran/projects/eye/coredata/libshared/linux32_ia32sse2" />
-					<Add directory="/home/ran/projects/eye/coredata/libstatic/linux32_ia32sse2" />
+					<Add option="-lboost_thread-mt" />
+					<Add library="X11" />
+					<Add library="/usr/users/promo2013/ran_she/project/workspace/eyeclient/libmouselib.a" />
+					<Add library="/usr/users/promo2013/ran_she/project/coredata/libshared/linux32_ia32sse2/libsm_cd_coredata.so" />
+					<Add library="/usr/users/promo2013/ran_she/project/coredata/libshared/linux32_ia32sse2/libsm_cd_coredata_d.so" />
+					<Add library="/usr/users/promo2013/ran_she/project/coredata/libstatic/linux32_ia32sse2/libsm_cd_coredata.a" />
+					<Add library="/usr/users/promo2013/ran_she/project/coredata/libstatic/linux32_ia32sse2/libsm_cd_coredata_d.a" />
+					<Add directory="/usr/users/promo2013/ran_she/project/coredata/libshared/linux32_ia32sse2" />
+					<Add directory="/usr/users/promo2013/ran_she/project/coredata/libstatic/linux32_ia32sse2" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -42,10 +44,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Linker>
-			<Add library="/home/ran/projects/workspace/tcpclient/libmouselib.a" />
-		</Linker>
 		<Unit filename="include/EyeClient.h" />
+		<Unit filename="include/Mouse.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/EyeClient.cpp" />
 		<Extensions>

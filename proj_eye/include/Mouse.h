@@ -14,6 +14,8 @@
 #define BUTTON_PRESSED 0
 #define BUTTON_RELEASED 1
 
+
+
 class Mouse
 {
     public:
