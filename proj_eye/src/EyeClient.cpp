@@ -15,7 +15,7 @@ int EyeClient::blinkActionCount = 0;
 int EyeClient::actionCount = 0;
 
 // constant
-static const int BLINK_TIMEVAL = 50000; // in microseconds
+static const int BLINK_TIMEVAL = 500; // in milliseconds
 
 // deprecated
 EyeClient* EyeClient::getInstance(){
@@ -43,7 +43,7 @@ EyeClient::~EyeClient()
     delete coord;
 }
 
-// connection
+// Establishing of connection to the Facelab server
 void EyeClient::connect(){
     if (!inetAddress.setHost(hostName))
     {
@@ -129,8 +129,8 @@ float* EyeClient::getCoord(){
     degreeY = directionY*180/M_PI;
     degreeZ = directionZ*180/M_PI;
 
-    coord[1]=-degreeX/16*ResolutionY/2+ResolutionY/2; // coord Y
-    coord[0]=-degreeY/20*ResolutionX/2+ResolutionX/2; // coord X
+    coord[1]=-degreeX/10*ResolutionY/2+ResolutionY/2; // coord Y
+    coord[0]=-degreeY/10*ResolutionX/2+ResolutionX/2; // coord X
     if(coord[0]<=0){
         coord[0]=0;
     }else if(coord[0]>=ResolutionX){
@@ -141,29 +141,18 @@ float* EyeClient::getCoord(){
     return coord;
 }
 
-// update status
+// update status and move the pointer
 void EyeClient::updateStatus(){
     dataPtr = tcpClient.receive(500);
     EyeOutputDataLatestPtr eyeDataPtr = dataPtr->eyeOutputData();
     HeadTrackerStateOutputDataPtr headTrackerPtr = dataPtr->engineStateOutputData()->headtrackerStateOutputData();
     if(dataPtr){
-//            if(eyeDataPtr->eyeClosureOutputData()->blinking()){
-//                cout<<"---------blinking----------"<<endl;
-//                usleep(5000000);
-//            }
-
-//            cout<<"------------DATA-----------"<<endl;
-//            cout<<"is blinking: "<<eyeDataPtr->eyeClosureOutputData()->blinking()<<endl;
-//            cout<<"blinking frequency: "<<eyeDataPtr->eyeClosureOutputData()->blinkFrequency()<<endl;
-//            cout<<"left eyeClosure: "<<eyeDataPtr->eyeClosureOutputData()->eyeClosure(sm::eod::LEFT_EYE)<<endl;
-//            cout<<"right eyeClosure: "<<eyeDataPtr->eyeClosureOutputData()->eyeClosure(sm::eod::RIGHT_EYE)<<endl;
             float leftEyeClosure = eyeDataPtr->eyeClosureOutputData()->eyeClosure(sm::eod::LEFT_EYE);
             float rightEyeClosure = eyeDataPtr->eyeClosureOutputData()->eyeClosure(sm::eod::RIGHT_EYE);
             if(testBlink(leftEyeClosure,rightEyeClosure)){
-                // mouse->action(SINGLE_CLICK_LEFT);
                 cout<<"blinked"<<endl;
-                mouse->action(SINGLE_CLICK_LEFT);
-                //triggerAction();
+                if(triggerAction())
+                    mouse->action(SINGLE_CLICK_LEFT);
             }
 
             if(eyeDataPtr->gazeOutputData()->gazeQualityLevel(sm::eod::RIGHT_EYE)!=0){ // if not tracking, gaze quality level = 0
@@ -178,12 +167,12 @@ bool EyeClient::testBlink(float l,float r){
     timeval time;
     if(blinkActionCount==0 && l>0.5 && r>0.5){
         gettimeofday(&time,NULL);
-        bTimeStamp[blinkActionCount++] = time.tv_usec;
+        bTimeStamp[blinkActionCount++] = convertTimeToMs(time);
         return false;
     }
     if(blinkActionCount==1 && l<0.5 && r<0.5){
         gettimeofday(&time,NULL);
-        bTimeStamp[blinkActionCount] = time.tv_usec;
+        bTimeStamp[blinkActionCount] = convertTimeToMs(time);
         if(bTimeStamp[blinkActionCount]-bTimeStamp[blinkActionCount-1]<BLINK_TIMEVAL){
             blinkActionCount = 0;
             return true;
@@ -192,24 +181,25 @@ bool EyeClient::testBlink(float l,float r){
     return false;
 }
 
-// trigger the actions if a blink is detected
+// trigger the actions
+// 2 blinks withins 1000 ms will trigger single click left
 bool EyeClient::triggerAction(){
     timeval time;
     if(actionCount==0){
         gettimeofday(&time,NULL);
-        timeStamp[actionCount++] = time.tv_usec;
+        timeStamp[actionCount++] = convertTimeToMs(time);
         cout<<"timeStamp 0 : "<<timeStamp[actionCount]<<endl;
         return false;
     }
     if(actionCount==1){
         gettimeofday(&time,NULL);
-        timeStamp[actionCount] = time.tv_usec;
+        timeStamp[actionCount] = convertTimeToMs(time);
         cout<<"timeStamp 1 : "<<timeStamp[actionCount]<<endl;
-        if(timeStamp[1]-timeStamp[0]>1000000){
+        if(timeStamp[1]-timeStamp[0]>1000){
             cout<<"timed out"<<endl;
             actionCount = 0;
             return false;
-        }else if(timeStamp[1]-timeStamp[0]<=1000000 && timeStamp[1]-timeStamp[0]>=50000){
+        }else if(timeStamp[1]-timeStamp[0]<=1000 && timeStamp[1]-timeStamp[0]>=100){
             cout<<timeStamp[1]-timeStamp[0]<<endl;
            // usleep(100000);
             actionCount = 0;
@@ -235,4 +225,7 @@ float * EyeClient::filter(float * coord,int order){
     return filterData[order-1];
 }
 
-
+// get current time in milliseconds
+double EyeClient::convertTimeToMs(struct timeval& tv){
+    return (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+}

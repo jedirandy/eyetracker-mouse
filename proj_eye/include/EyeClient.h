@@ -25,17 +25,18 @@ class EyeClient
         string getHost();
         void setHost(string address);
         void setResolution(int x,int y);
+        // connection functions
         void connect();
         void disconnect();
         bool isConnected();
-        std::vector<float>& getRotation();
-        void getPosition();
-        float* getCoord();
         void updateStatus();
         void startEngine();
+        void stopEngine();
     protected:
     private:
         EyeClient();
+        const static string DEFAULT_HOSTNAME;
+        const static int DEFAULT_PORTNUMBER;
         static EyeClient* clientInstance;
         static string hostName;
         static int tcpPortnumber;
@@ -50,8 +51,9 @@ class EyeClient
         InetAddress inetAddress;
         // engine output data
         EngineOutputDataPtr dataPtr;
-        const static string DEFAULT_HOSTNAME;
-        const static int DEFAULT_PORTNUMBER;
+        std::vector<float>& getRotation();
+        void getPosition();
+        float* getCoord();
         Mouse* mouse;
         void setAction();
         float* filter(float* coord, int order);
@@ -60,6 +62,7 @@ class EyeClient
         bool testBlink(float leftEye, float rightEye);
         static long timeStamp[3];
         static long bTimeStamp[2];
+        double convertTimeToMs(struct timeval& tv);
         static int blinkActionCount;
         // action
         bool triggerAction();
