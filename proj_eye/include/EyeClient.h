@@ -69,6 +69,7 @@ class EyeClient
         static long bTimeStamp[2];
         double convertTimeToMs(struct timeval& tv);
         static int blinkActionCount;
+        float* blinkCoord;
         // action
         bool triggerAction();
         static int actionCount;

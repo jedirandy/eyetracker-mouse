@@ -33,6 +33,7 @@ EyeClient::EyeClient()
 
 EyeClient::EyeClient(string hostName){
     coord = new float[2];
+    blinkCoord = new float[2];
     this->hostName = hostName;
     inetAddress.setPort(DEFAULT_PORTNUMBER);
     inetAddress.setHost(hostName);
@@ -41,6 +42,7 @@ EyeClient::EyeClient(string hostName){
 
 EyeClient::~EyeClient()
 {
+    delete blinkCoord;
     delete coord;
 }
 
@@ -161,14 +163,16 @@ void EyeClient::updateStatus(){
                 if(triggerAction())
                     mouse->action(SINGLE_CLICK_LEFT);
             }
-            if(eyeDataPtr->gazeOutputData()->gazeQualityLevel(sm::eod::RIGHT_EYE)!=0){ // if not tracking, gaze quality level = 0
-                float * coord = new float(2);
-                if(isFiltered())
-                    coord = filter(getCoord(),3);
-                else
-                    coord = getCoord();
-                mouse->move(coord[0],coord[1]);
-           }
+            else{
+                if(eyeDataPtr->gazeOutputData()->gazeQualityLevel(sm::eod::RIGHT_EYE)!=0){ // if not tracking, gaze quality level = 0
+                    float * coord = new float(2);
+                    if(isFiltered())
+                        coord = filter(getCoord(),3);
+                    else
+                        coord = getCoord();
+                    mouse->move(coord[0],coord[1]);
+                }
+            }
     }
 }
 
@@ -198,21 +202,23 @@ bool EyeClient::triggerAction(){
     if(actionCount==0){
         gettimeofday(&time,NULL);
         timeStamp[actionCount++] = convertTimeToMs(time);
-        cout<<"timeStamp 0 : "<<timeStamp[actionCount]<<endl;
+        //cout<<"timeStamp 0 : "<<timeStamp[actionCount]<<endl;
+        blinkCoord = filter(getCoord(),3);
         return false;
     }
     if(actionCount==1){
         gettimeofday(&time,NULL);
         timeStamp[actionCount] = convertTimeToMs(time);
-        cout<<"timeStamp 1 : "<<timeStamp[actionCount]<<endl;
+        //cout<<"timeStamp 1 : "<<timeStamp[actionCount]<<endl;
         if(timeStamp[1]-timeStamp[0]>1000){
-            cout<<"timed out"<<endl;
+           // cout<<"timed out"<<endl;
             actionCount = 0;
             return false;
-        }else if(timeStamp[1]-timeStamp[0]<=1000 && timeStamp[1]-timeStamp[0]>=100){
+        }else if(timeStamp[1]-timeStamp[0]<=1000 && timeStamp[1]-timeStamp[0]>=10){
             cout<<timeStamp[1]-timeStamp[0]<<endl;
            // usleep(100000);
             actionCount = 0;
+            mouse->move(blinkCoord[0],blinkCoord[1]);
             mouse->action(SINGLE_CLICK_LEFT);
             return true;
         }
