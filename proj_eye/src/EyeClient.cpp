@@ -210,11 +210,11 @@ bool EyeClient::triggerAction(){
         gettimeofday(&time,NULL);
         timeStamp[actionCount] = convertTimeToMs(time);
         //cout<<"timeStamp 1 : "<<timeStamp[actionCount]<<endl;
-        if(timeStamp[1]-timeStamp[0]>1000){
+        if(timeStamp[1]-timeStamp[0]>1500){
            // cout<<"timed out"<<endl;
             actionCount = 0;
             return false;
-        }else if(timeStamp[1]-timeStamp[0]<=1000 && timeStamp[1]-timeStamp[0]>=10){
+        }else if(timeStamp[1]-timeStamp[0]<=1500 && timeStamp[1]-timeStamp[0]>=10){
             cout<<timeStamp[1]-timeStamp[0]<<endl;
            // usleep(100000);
             actionCount = 0;
