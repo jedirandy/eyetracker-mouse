@@ -24,6 +24,7 @@ int main()
     client->connect();
     if(client->isConnected()){
         cout<<"connected to the server: "<<client->getHost()<<endl;
+        //setFilter(false);
         client->startEngine();
     }
     delete client;

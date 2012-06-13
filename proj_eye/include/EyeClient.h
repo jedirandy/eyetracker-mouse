@@ -32,6 +32,7 @@ class EyeClient
         void updateStatus();
         void startEngine();
         void stopEngine();
+        void setFilter(bool f);
     protected:
     private:
         EyeClient();
@@ -40,6 +41,7 @@ class EyeClient
         static EyeClient* clientInstance;
         static string hostName;
         static int tcpPortnumber;
+        static bool bEngineStarted;
         float* coord;
         float directionX;
         float directionY;
@@ -56,8 +58,11 @@ class EyeClient
         float* getCoord();
         Mouse* mouse;
         void setAction();
+        // filter
+        bool isFiltered();
         float* filter(float* coord, int order);
         static float filterData[3][2];
+        static bool bFiltered;
         // test blink
         bool testBlink(float leftEye, float rightEye);
         static long timeStamp[3];

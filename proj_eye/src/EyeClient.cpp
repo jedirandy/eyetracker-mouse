@@ -6,13 +6,14 @@ EyeClient* EyeClient::clientInstance = NULL;
 int EyeClient::tcpPortnumber = 0;
 const string EyeClient::DEFAULT_HOSTNAME ="127.0.0.1";
 const int EyeClient::DEFAULT_PORTNUMBER = 3000;
+bool EyeClient::bEngineStarted = false;
 float EyeClient::filterData[3][2];
-
 
 long EyeClient::timeStamp[3];
 long EyeClient::bTimeStamp[2];
 int EyeClient::blinkActionCount = 0;
 int EyeClient::actionCount = 0;
+bool EyeClient::bFiltered = true;
 
 // constant
 static const int BLINK_TIMEVAL = 500; // in milliseconds
@@ -70,9 +71,14 @@ void EyeClient::setResolution(int x,int y){
 }
 
 void EyeClient::startEngine(){
-    while(isConnected()){
+    bEngineStarted = true;
+    while(bEngineStarted){
         updateStatus();
     }
+}
+
+void EyeClient::stopEngine(){
+    bEngineStarted = false;
 }
 
 // remote information
@@ -129,6 +135,7 @@ float* EyeClient::getCoord(){
     degreeY = directionY*180/M_PI;
     degreeZ = directionZ*180/M_PI;
 
+    // degrees to coordinates
     coord[1]=-degreeX/10*ResolutionY/2+ResolutionY/2; // coord Y
     coord[0]=-degreeY/10*ResolutionX/2+ResolutionX/2; // coord X
     if(coord[0]<=0){
@@ -154,9 +161,12 @@ void EyeClient::updateStatus(){
                 if(triggerAction())
                     mouse->action(SINGLE_CLICK_LEFT);
             }
-
             if(eyeDataPtr->gazeOutputData()->gazeQualityLevel(sm::eod::RIGHT_EYE)!=0){ // if not tracking, gaze quality level = 0
-                float * coord = filter(getCoord(),3);
+                float * coord = new float(2);
+                if(isFiltered())
+                    coord = filter(getCoord(),3);
+                else
+                    coord = getCoord();
                 mouse->move(coord[0],coord[1]);
            }
     }
@@ -182,7 +192,7 @@ bool EyeClient::testBlink(float l,float r){
 }
 
 // trigger the actions
-// 2 blinks withins 1000 ms will trigger single click left
+// 2 blinks within 1000 ms will trigger single click left
 bool EyeClient::triggerAction(){
     timeval time;
     if(actionCount==0){
@@ -208,6 +218,16 @@ bool EyeClient::triggerAction(){
         }
     }
     return false;
+}
+
+// Filter functions
+//
+void EyeClient::setFilter(bool f){
+    bFiltered = f;
+}
+
+bool EyeClient::isFiltered(){
+    return bFiltered;
 }
 
 // n order low-pass filter
