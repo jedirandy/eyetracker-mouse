@@ -8,29 +8,25 @@ const string EyeClient::DEFAULT_HOSTNAME ="127.0.0.1";
 const int EyeClient::DEFAULT_PORTNUMBER = 3000;
 bool EyeClient::bEngineStarted = false;
 float EyeClient::filterData[3][2];
-
 long EyeClient::timeStamp[3];
 long EyeClient::bTimeStamp[2];
 int EyeClient::blinkActionCount = 0;
 int EyeClient::actionCount = 0;
-bool EyeClient::bFiltered = true;
 
 // constant
 static const int BLINK_TIMEVAL = 500; // in milliseconds
 
-// deprecated
-EyeClient* EyeClient::getInstance(){
-    if(clientInstance==NULL){
-        clientInstance = new EyeClient();
-    }
-    return clientInstance;
-}
-
+/*
+    constructeur défault
+*/
 EyeClient::EyeClient()
 {
     this->hostName = DEFAULT_HOSTNAME;
 }
 
+/*
+    constructeur
+*/
 EyeClient::EyeClient(string hostName){
     coord = new float[2];
     blinkCoord = new float[2];
@@ -40,13 +36,19 @@ EyeClient::EyeClient(string hostName){
     mouse = Mouse::getInstance();
 }
 
+/*
+    déstructeur
+*/
 EyeClient::~EyeClient()
 {
     delete blinkCoord;
     delete coord;
 }
 
-// Establishing of connection to the Facelab server
+// Establishing of connection to the server
+/*
+    établir la connexion avec le serveur
+*/
 void EyeClient::connect(){
     if (!inetAddress.setHost(hostName))
     {
@@ -57,21 +59,38 @@ void EyeClient::connect(){
     tcpClient.connect(inetAddress);
 }
 
+/*
+    déconnexion du serveur
+*/
 void EyeClient::disconnect(){
     tcpClient.disconnect();
     cout<<"disconnected to the server"<<endl;
 }
 
+/*
+    obtenir l'état de la connexion
+    retourne :
+        true si la connexion est établie
+*/
 bool EyeClient::isConnected(){
     return tcpClient.isConnected();
 }
 
 // set screen resolution
+/*
+    mettre la résolution de l'écran
+    paramètres :
+        int x : largeur
+        int y : hauteur
+*/
 void EyeClient::setResolution(int x,int y){
     ResolutionX = x;
     ResolutionY = y;
 }
 
+/*
+    démarrer le système
+*/
 void EyeClient::startEngine(){
     bEngineStarted = true;
     while(bEngineStarted){
@@ -79,49 +98,38 @@ void EyeClient::startEngine(){
     }
 }
 
+/*
+    arrêter le système
+*/
 void EyeClient::stopEngine(){
     bEngineStarted = false;
 }
 
 // remote information
+/*
+    obtenir de l'hôte du serveur
+        retourne : string : le hôte du serveur
+*/
 string EyeClient::getHost(){
     return hostName;
 }
 
+/*
+    mettre l'hôte du serveur
+    paramètres :
+        string hostName :
+*/
 void EyeClient::setHost(string hostName){
     this->hostName = hostName;
     //inetAddress.setHost(hostName);
 }
 
-// get rotation data from facelab engine
-std::vector<float>& EyeClient::getRotation(){
-    dataPtr = tcpClient.receive(500);
-    if(dataPtr){
-        if(dataPtr->headOutputData()){
-            directionX = dataPtr->headOutputData()->headRotation().at(X_DIRECTION);
-            directionY = dataPtr->headOutputData()->headRotation().at(Y_DIRECTION);
-            directionZ = dataPtr->headOutputData()->headRotation().at(Z_DIRECTION);
-            printf("rotation data: x: %f  y: %f  z: %f\n",directionX,directionY,directionZ);
-        }
-    }
-
-    float degreeX, degreeY, degreeZ;
-    degreeX = directionX*180/M_PI;
-    degreeY = directionY*180/M_PI;
-    degreeZ = directionZ*180/M_PI;
-
-    degreeVector.push_back(degreeX);
-    degreeVector.push_back(degreeY);
-    degreeVector.push_back(degreeZ);
-
-    int x,y;
-    x=degreeX/30*800+800;
-    y=degreeY/30*450+450;
-    printf("%i %i",x,y);
-    return degreeVector;
-}
-
-// get the instant coordinates
+// get the coordinates
+/*
+    obtenir des coordonées et les traite
+    retourne :
+        float * : le tableau des coordonées de l'écran
+*/
 float* EyeClient::getCoord(){
     dataPtr = tcpClient.receive(500);
     if(dataPtr){
@@ -136,7 +144,6 @@ float* EyeClient::getCoord(){
     degreeX = directionX*180/M_PI;
     degreeY = directionY*180/M_PI;
     degreeZ = directionZ*180/M_PI;
-
     // degrees to coordinates
     coord[1]=-degreeX/10*ResolutionY/2+ResolutionY/2; // coord Y
     coord[0]=-degreeY/10*ResolutionX/2+ResolutionX/2; // coord X
@@ -145,12 +152,14 @@ float* EyeClient::getCoord(){
     }else if(coord[0]>=ResolutionX){
         coord[0]=ResolutionX;
     }
-
     printf("coordinate X: %i  Y: %i\n",(int)coord[0],(int)coord[1]);
     return coord;
 }
 
 // update status and move the pointer
+/*
+    mise à jour de l'état
+*/
 void EyeClient::updateStatus(){
     dataPtr = tcpClient.receive(500);
     EyeOutputDataLatestPtr eyeDataPtr = dataPtr->eyeOutputData();
@@ -166,17 +175,22 @@ void EyeClient::updateStatus(){
             else{
                 if(eyeDataPtr->gazeOutputData()->gazeQualityLevel(sm::eod::RIGHT_EYE)!=0){ // if not tracking, gaze quality level = 0
                     float * coord = new float(2);
-                    if(isFiltered())
-                        coord = filter(getCoord(),3);
-                    else
-                        coord = getCoord();
+                    coord = filter(getCoord(),3);
                     mouse->move(coord[0],coord[1]);
                 }
             }
     }
 }
 
-// test the status of blink
+// detection of blinks
+/*
+    détection d'un clin d'oeil
+    paramètres :
+        float l : la qualité de fermeture d'oeil gauche
+        float r : la qualité de fermeture d'oeil droite
+    retourne :
+        true s'il y a un clin d'oeil
+*/
 bool EyeClient::testBlink(float l,float r){
     timeval time;
     if(blinkActionCount==0 && l>0.5 && r>0.5){
@@ -196,7 +210,12 @@ bool EyeClient::testBlink(float l,float r){
 }
 
 // trigger the actions
-// 2 blinks within 1000 ms will trigger single click left
+// 2 blinks within 1500 ms will trigger single click left
+/*
+    provoke une action
+    retourne :
+        true si une action a été provoquée
+*/
 bool EyeClient::triggerAction(){
     timeval time;
     if(actionCount==0){
@@ -226,17 +245,16 @@ bool EyeClient::triggerAction(){
     return false;
 }
 
-// Filter functions
-//
-void EyeClient::setFilter(bool f){
-    bFiltered = f;
-}
-
-bool EyeClient::isFiltered(){
-    return bFiltered;
-}
 
 // n order low-pass filter
+/*
+    filtre des coordonnées
+    parametres :
+        float * coord : tableau des coordonées originales
+        int order : ordre du filtrage
+    retourne :
+        float * : le tableau des données traitées par un filtre
+*/
 float * EyeClient::filter(float * coord,int order){
     int time_cst=5;
 
@@ -252,6 +270,13 @@ float * EyeClient::filter(float * coord,int order){
 }
 
 // get current time in milliseconds
+/*
+    obtenir du temps en milliseconds
+    paramètres :
+        struct timeval& tv : le structure de la répresentaion du temps, inclus dans time.h
+    retourne :
+        double : le temps en milliseconds
+*/
 double EyeClient::convertTimeToMs(struct timeval& tv){
     return (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
 }

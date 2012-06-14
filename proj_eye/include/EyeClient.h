@@ -20,7 +20,6 @@ class EyeClient
 {
     public:
         EyeClient(string serverAddress);
-        EyeClient* getInstance();
         virtual ~EyeClient();
         string getHost();
         void setHost(string address);
@@ -53,17 +52,14 @@ class EyeClient
         InetAddress inetAddress;
         // engine output data
         EngineOutputDataPtr dataPtr;
-        std::vector<float>& getRotation();
         void getPosition();
         float* getCoord();
         Mouse* mouse;
         void setAction();
         // filter
-        bool isFiltered();
         float* filter(float* coord, int order);
         static float filterData[3][2];
-        static bool bFiltered;
-        // test blink
+        // fonctions des traitement
         bool testBlink(float leftEye, float rightEye);
         static long timeStamp[3];
         static long bTimeStamp[2];
